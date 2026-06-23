@@ -1,4 +1,5 @@
 <div align="center">
+
 <p align="center">
   <a href="README.md"><img src="https://img.shields.io/badge/🇬🇧-ENGLISH-blue?style=for-the-badge" /></a>
   <strong> | </strong>
@@ -16,7 +17,7 @@
 [![Hecho con cuidado](https://img.shields.io/badge/hecho%20con%20%E2%9D%A4%EF%B8%8F%20por-Alexandre%20Iglesias-0a0c10.svg)](https://github.com/projekta2)
 [![Made by Projekta2](https://img.shields.io/badge/made%20by-Projekta2-0a0c10.svg)](https://github.com/projekta2)
 
-[**🟢 Abrir el checklist interactivo →**](https://projekta2.github.io/pr-review-canvas/)
+[**🟢 Abrir el checklist interactivo →**](https://projekta2.github.io/pr-review-canvas/es/)
 
 </div>
 
@@ -38,7 +39,7 @@ Todo el contenido es agnóstico al framework, agnóstico al lenguaje y atemporal
 
 El checklist no es sólo un archivo markdown que tienes que imaginar marcando. Es una herramienta interactiva real con una puntuación de «Preparación de la Revisión», categorías desplegables y progreso guardado en tu navegador:
 
-**👉 [projekta2.github.io/pr-review-canvas](https://projekta2.github.io/pr-review-canvas/)**
+**👉 [projekta2.github.io/pr-review-canvas/es/](https://projekta2.github.io/pr-review-canvas/es/)**
 
 Sin instalación, sin cuenta, sin rastreo. Ábrelo, marca lo que corresponda y exporta tus notas cuando hayas terminado.
 
@@ -46,29 +47,29 @@ Sin instalación, sin cuenta, sin rastreo. Ábrelo, marca lo que corresponda y e
 
 | Ruta | Qué es |
 |---|---|
-| [`checklists/pr-review-checklist.md`](checklists/pr-review-checklist.md) | El checklist completo de 51 ítems, organizado en 8 categorías, con un «por qué» para cada ítem |
-| [`checklists/interactive-checklist.html`](checklists/interactive-checklist.html) | El mismo checklist como herramienta interactiva autocontenida, válida sin conexión |
+| [`checklists/es/pr-review-checklist.md`](checklists/es/pr-review-checklist.md) | El checklist completo de 51 ítems, organizado en 8 categorías, con un «por qué» para cada ítem |
+| [`docs/es/index.html`](docs/es/index.html) | El mismo checklist como herramienta interactiva autocontenida, válida sin conexión |
 | [`checklists/pr-review-checklist-template.md`](checklists/pr-review-checklist-template.md) | Una versión en blanco y editable para equipos que quieran adaptarla a sus propios estándares |
-| [`templates/pr-template.md`](templates/pr-template.md) | Una plantilla ligera de descripción de PR para cambios cotidianos |
-| [`templates/pr-template-advanced.md`](templates/pr-template-advanced.md) | Una plantilla más completa para cambios complejos, de alto riesgo o entre equipos |
-| [`guides/for-beginners.md`](guides/for-beginners.md) | Una guía paso a paso para revisar tus primeros PRs sin perderte |
-| [`guides/for-experts.md`](guides/for-experts.md) | Técnicas para revisar rápido a escala, y cuándo delegar o automatizar |
-| [`guides/how-to-give-feedback.md`](guides/how-to-give-feedback.md) | Patrones de feedback constructivo, frases que funcionan y frases que hay que jubilar |
-| [`guides/how-to-receive-feedback.md`](guides/how-to-receive-feedback.md) | El lado del autor: cómo recibir el feedback de una revisión sin tomártelo como algo personal |
-| [`examples/good-pr-example.md`](examples/good-pr-example.md) | Un ejemplo anotado de un PR bien escrito, y por qué funciona |
-| [`examples/bad-pr-example.md`](examples/bad-pr-example.md) | Un ejemplo anotado de un PR mal escrito, y cómo corregir cada problema |
-| [`examples/annotated-review-example.md`](examples/annotated-review-example.md) | Una transcripción completa de una revisión, comentario a comentario, con el razonamiento detrás |
-| [`resources/code-review-antipatterns.md`](resources/code-review-antipatterns.md) | Los patrones recurrentes con los que las revisiones de código salen mal, en ambos lados del diff |
-| [`resources/notion-template.md`](resources/notion-template.md) | Una versión lista para pegar del checklist en Notion |
-| [`resources/obsidian-template.md`](resources/obsidian-template.md) | Una versión lista para pegar del checklist en Obsidian |
+| [`templates/es/pr-template.md`](templates/es/pr-template.md) | Una plantilla ligera de descripción de PR para cambios cotidianos |
+| [`templates/es/pr-template-advanced.md`](templates/es/pr-template-advanced.md) | Una plantilla más completa para cambios complejos, de alto riesgo o entre equipos |
+| [`guides/es/for-beginners.md`](guides/es/for-beginners.md) | Una guía paso a paso para revisar tus primeros PRs sin perderte |
+| [`guides/es/for-experts.md`](guides/es/for-experts.md) | Técnicas para revisar rápido a escala, y cuándo delegar o automatizar |
+| [`guides/es/how-to-give-feedback.md`](guides/es/how-to-give-feedback.md) | Patrones de feedback constructivo, frases que funcionan y frases que hay que jubilar |
+| [`guides/es/how-to-receive-feedback.md`](guides/es/how-to-receive-feedback.md) | El lado del autor: cómo recibir el feedback de una revisión sin tomártelo como algo personal |
+| [`examples/es/good-pr-example.md`](examples/es/good-pr-example.md) | Un ejemplo anotado de un PR bien escrito, y por qué funciona |
+| [`examples/es/bad-pr-example.md`](examples/es/bad-pr-example.md) | Un ejemplo anotado de un PR mal escrito, y cómo corregir cada problema |
+| [`examples/es/annotated-review-example.md`](examples/es/annotated-review-example.md) | Una transcripción completa de una revisión, comentario a comentario, con el razonamiento detrás |
+| [`resources/es/code-review-antipatterns.md`](resources/es/code-review-antipatterns.md) | Los patrones recurrentes con los que las revisiones de código salen mal, en ambos lados del diff |
+| [`resources/es/notion-template.md`](resources/es/notion-template.md) | Una versión lista para pegar del checklist en Notion |
+| [`resources/es/obsidian-template.md`](resources/es/obsidian-template.md) | Una versión lista para pegar del checklist en Obsidian |
 
 ## Cómo usarlo
 
-**Como revisor individual:** guarda en favoritos el [checklist en vivo](https://projekta2.github.io/pr-review-canvas/) y úsalo en tu próximo PR. Tarda unos cinco minutos y detectará cosas que una lectura rápida pasa por alto.
+**Como revisor individual:** guarda en favoritos el [checklist en vivo](https://projekta2.github.io/pr-review-canvas/es/) y úsalo en tu próximo PR. Tarda unos cinco minutos y detectará cosas que una lectura rápida pasa por alto.
 
-**Como equipo:** bifurca este repositorio, abre [`checklists/pr-review-checklist-template.md`](checklists/pr-review-checklist-template.md) y recórtalo o amplíalo hasta que se ajuste a cómo trabaja realmente tu equipo. Copia [`templates/pr-template.md`](templates/pr-template.md) en tu `.github/PULL_REQUEST_TEMPLATE.md` para que todos los PRs partan desde la misma base.
+**Como equipo:** bifurca este repositorio, abre [`checklists/pr-review-checklist-template.md`](checklists/pr-review-checklist-template.md) y recórtalo o amplíalo hasta que se ajuste a cómo trabaja realmente tu equipo. Copia [`templates/es/pr-template.md`](templates/es/pr-template.md) en tu `.github/PULL_REQUEST_TEMPLATE.md` para que todos los PRs partan desde la misma base.
 
-**Como recién llegado:** lee primero [`guides/for-beginners.md`](guides/for-beginners.md). Está escrito para el momento justo después de que te asignen tu primera revisión y no sepas por dónde empezar.
+**Como recién llegado:** lee primero [`guides/es/for-beginners.md`](guides/es/for-beginners.md). Está escrito para el momento justo después de que te asignen tu primera revisión y no sepas por dónde empezar.
 
 ## Por qué importa esto
 
@@ -105,8 +106,6 @@ Este kit mejora con más opiniones de revisores. Nuevos ítems en el checklist, 
 
 <sub>Si esto le ha ahorrado a tu equipo una vuelta de ida y vuelta en un PR, considera darle una estrella al repositorio — ayuda a que otros desarrolladores lo encuentren.</sub>
 
-<a href="https://star-history.com/#projekta2/pr-review-canvas&Date">
-  <img src="https://api.star-history.com/svg?repos=projekta2/pr-review-canvas&type=Date" width="500" alt="Historial de estrellas"/>
-</a>
+<a href="https://star-history.com/#projekta2/pr-review-canvas&Date"> <img src="https://api.star-history.com/svg?repos=projekta2/pr-review-canvas&type=Date" width="500" alt="Historial de estrellas"/> </a>
 
 </div>
