@@ -1,0 +1,41 @@
+<svg viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PR Review Canvas banner">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0c10"/>
+      <stop offset="100%" stop-color="#11141b"/>
+    </linearGradient>
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#f97316"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="300" fill="url(#bgGrad)"/>
+
+  <!-- subtle grid texture -->
+  <g stroke="#1c2029" stroke-width="1">
+    <line x1="0" y1="60" x2="1200" y2="60"/>
+    <line x1="0" y1="240" x2="1200" y2="240"/>
+  </g>
+
+  <!-- readiness ring, signature motif -->
+  <g transform="translate(1015,150)">
+    <circle r="78" fill="none" stroke="#1c2029" stroke-width="10"/>
+    <circle r="78" fill="none" stroke="url(#ringGrad)" stroke-width="10"
+            stroke-linecap="round" stroke-dasharray="380 490" transform="rotate(-90)"/>
+    <text x="0" y="-2" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace"
+          font-size="40" fill="#f5f5f4" font-weight="600">92</text>
+    <text x="0" y="26" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace"
+          font-size="14" fill="#9aa3af" letter-spacing="1">READY</text>
+  </g>
+
+  <text x="70" y="130" font-family="Inter, -apple-system, Segoe UI, sans-serif"
+        font-size="56" font-weight="700" fill="#f5f5f4">PR Review Canvas</text>
+  <text x="70" y="172" font-family="Inter, -apple-system, Segoe UI, sans-serif"
+        font-size="21" fill="#9aa3af">A code review survival kit — checklists, templates &amp; an</text>
+  <text x="70" y="200" font-family="Inter, -apple-system, Segoe UI, sans-serif"
+        font-size="21" fill="#9aa3af">interactive review tracker for developers who ship with confidence.</text>
+
+  <text x="70" y="250" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#f97316">
+    by Projekta2</text>
+</svg>

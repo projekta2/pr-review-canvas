@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PR Review Canvas — Interactive Checklist</title>
+<meta name="description" content="An interactive, offline-capable code review checklist with a Review Readiness score. Part of the PR Review Canvas kit by Projekta2." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  html, body[data-theme="dark"] {
+    --bg: #0a0c10;
+    --surface: #11141b;
+    --surface-2: #161a22;
+    --border: #1f2430;
+    --text: #f5f5f4;
+    --text-dim: #9aa3af;
+    --text-faint: #5b6373;
+    --blue: #3b82f6;
+    --orange: #f97316;
+    --track: #1f2430;
+    --focus: #60a5fa;
+  }
+  body[data-theme="light"] {
+    --bg: #f6f6f4;
+    --surface: #ffffff;
+    --surface-2: #f0f0ed;
+    --border: #e3e2dd;
+    --text: #16181d;
+    --text-dim: #5b6373;
+    --text-faint: #8a8f99;
+    --blue: #2563eb;
+    --orange: #ea580c;
+    --track: #e3e2dd;
+    --focus: #2563eb;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0,0,0,0); white-space: nowrap;
+  }
+
+  .shell {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    max-width: 1180px;
+    margin: 0 auto;
+    min-height: 100vh;
+  }
+  @media (max-width: 860px) {
+    .shell { grid-template-columns: 1fr; }
+  }
+
+  /* ---- Sidebar ---- */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    padding: 28px 20px;
+    border-right: 1px solid var(--border);
+    height: 100vh;
+    overflow-y: auto;
+  }
+  @media (max-width: 860px) {
+    .sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+  }
+  .brand { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+  .brand-title { font-size: 15px; font-weight: 600; }
+  .brand-sub { font-size: 12px; color: var(--text-faint); margin-top: 2px; }
+  .theme-btn {
+    background: var(--surface-2); border: 1px solid var(--border); color: var(--text);
+    border-radius: 8px; width: 34px; height: 34px; cursor: pointer; font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .theme-btn:hover { border-color: var(--text-faint); }
+
+  .gauge-wrap { display: flex; flex-direction: column; align-items: center; padding: 18px 0 22px; }
+  .gauge-label { font-size: 11px; letter-spacing: 1px; color: var(--text-faint); text-transform: uppercase; margin-top: 10px; }
+  .gauge-sub { font-size: 12px; color: var(--text-dim); margin-top: 2px; text-align: center; }
+
+  .nav-list { list-style: none; margin: 0 0 18px; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+  .nav-item {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    padding: 8px 10px; border-radius: 8px; cursor: pointer; border: 1px solid transparent;
+    font-size: 13px; color: var(--text-dim); background: none; width: 100%; text-align: left;
+  }
+  .nav-item:hover { background: var(--surface-2); color: var(--text); }
+  .nav-count { font-size: 11px; color: var(--text-faint); flex-shrink: 0; }
+  .nav-count.done { color: var(--orange); }
+
+  .actions { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  .btn {
+    font-family: inherit; font-size: 13px; font-weight: 500; padding: 9px 12px;
+    border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2);
+    color: var(--text); cursor: pointer; text-align: left;
+  }
+  .btn:hover { border-color: var(--text-faint); }
+  .btn.primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .btn.primary:hover { opacity: 0.92; }
+  .btn.ghost { background: transparent; }
+
+  /* ---- Main ---- */
+  .main { padding: 36px 32px 80px; min-width: 0; }
+  @media (max-width: 860px) { .main { padding: 24px 18px 60px; } }
+  .page-head h1 { font-size: 24px; font-weight: 700; margin: 0 0 6px; }
+  .page-head p { font-size: 14px; color: var(--text-dim); margin: 0 0 4px; max-width: 560px; }
+  .page-head .back { font-size: 13px; margin-top: 10px; display: inline-block; }
+
+  .toolbar { display: flex; gap: 8px; margin: 22px 0 18px; flex-wrap: wrap; }
+
+  .category {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .category summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .category summary::-webkit-details-marker { display: none; }
+  .cat-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .cat-num {
+    font-size: 12px; color: var(--text-faint); flex-shrink: 0; width: 20px;
+  }
+  .cat-title { font-size: 15px; font-weight: 600; }
+  .cat-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .cat-frac { font-size: 13px; color: var(--text-dim); }
+  .cat-chevron { transition: transform 0.15s ease; color: var(--text-faint); font-size: 12px; }
+  .category[open] .cat-chevron { transform: rotate(90deg); }
+  @media (prefers-reduced-motion: reduce) {
+    .cat-chevron { transition: none; }
+  }
+
+  .mini-bar { width: 60px; height: 4px; border-radius: 2px; background: var(--track); overflow: hidden; flex-shrink: 0; }
+  .mini-bar-fill { height: 100%; border-radius: 2px; background: var(--blue); transition: width 0.25s ease, background 0.25s ease; }
+  @media (prefers-reduced-motion: reduce) { .mini-bar-fill { transition: none; } }
+
+  .items { border-top: 1px solid var(--border); padding: 6px 10px 12px; }
+  .item {
+    display: flex; align-items: flex-start; gap: 10px; padding: 10px 8px; border-radius: 8px;
+  }
+  .item:hover { background: var(--surface-2); }
+  .item input[type="checkbox"] {
+    margin-top: 3px; width: 17px; height: 17px; accent-color: var(--orange); flex-shrink: 0; cursor: pointer;
+  }
+  .item label { cursor: pointer; flex: 1; min-width: 0; }
+  .item-text { font-size: 14px; }
+  .item.checked .item-text { color: var(--text-faint); text-decoration: line-through; }
+  .item-why { font-size: 12.5px; color: var(--text-dim); margin-top: 3px; }
+  .item.checked .item-why { color: var(--text-faint); }
+
+  #toast {
+    position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(10px);
+    background: var(--surface); border: 1px solid var(--border); color: var(--text);
+    padding: 10px 16px; border-radius: 8px; font-size: 13px; opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease; pointer-events: none;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  @media (prefers-reduced-motion: reduce) { #toast { transition: none; } }
+</style>
+</head>
+<body data-theme="dark">
+<h1 class="sr-only">Interactive code review checklist with 51 items across 8 categories, a review readiness score, and progress saved in your browser.</h1>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div>
+        <div class="brand-title">PR Review Canvas</div>
+        <div class="brand-sub">by Projekta2</div>
+      </div>
+      <button class="theme-btn" id="themeToggle" aria-label="Toggle light and dark theme">◐</button>
+    </div>
+
+    <div class="gauge-wrap">
+      <svg width="140" height="140" viewBox="0 0 140 140" role="img" aria-label="Review readiness score">
+        <circle cx="70" cy="70" r="58" fill="none" stroke="var(--track)" stroke-width="11"></circle>
+        <circle id="gaugeRing" cx="70" cy="70" r="58" fill="none" stroke="var(--blue)" stroke-width="11"
+                stroke-linecap="round" transform="rotate(-90 70 70)"
+                stroke-dasharray="364.4" stroke-dashoffset="364.4"
+                style="transition: stroke-dashoffset 0.4s ease, stroke 0.4s ease;"></circle>
+        <text id="gaugeNum" x="70" y="76" text-anchor="middle" class="mono" font-size="30" font-weight="600" fill="var(--text)">0%</text>
+      </svg>
+      <div class="gauge-label">Review readiness</div>
+      <div class="gauge-sub" id="gaugeSub">0 of 51 checked</div>
+    </div>
+
+    <ul class="nav-list" id="navList"></ul>
+
+    <div class="actions">
+      <button class="btn ghost" id="toggleAllBtn">Collapse all</button>
+      <button class="btn ghost" id="copyBtn">Copy summary</button>
+      <button class="btn ghost" id="downloadBtn">Download .txt</button>
+      <button class="btn ghost" id="resetBtn">Reset checklist</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <h1>The PR Review Checklist</h1>
+      <p>51 items, 8 categories, one reason for every line. Check things off as you go — your progress is saved in this browser only, nothing is sent anywhere.</p>
+      <a class="back" href="https://github.com/projekta2/pr-review-canvas">← Back to the repo on GitHub</a>
+    </div>
+
+    <div class="toolbar">
+      <button class="btn primary" id="expandTop">Expand all</button>
+    </div>
+
+    <div id="categories"></div>
+  </main>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var DATA = [
+    { key: "context", title: "Context & Purpose", items: [
+      ["c1","The PR description clearly states what changed and why.","Future readers need to understand intent without rejoining the issue tracker."],
+      ["c2","The PR links to the relevant issue, ticket, or spec.","Traceability matters more once the PR is old news."],
+      ["c3","The PR's size matches its stated scope.","Scope creep is the single biggest cause of slow reviews."],
+      ["c4","The title is specific enough to be useful in a changelog.","\"Fix bug\" tells nobody anything a year from now."],
+      ["c5","You understand the problem this PR solves before reading the code.","You can't judge a solution without knowing the problem."]
+    ]},
+    { key: "architecture", title: "Architecture & Design", items: [
+      ["a1","The change fits the existing architecture, or justifies deviating from it.","Silent architectural drift creates five ways to do the same thing."],
+      ["a2","Responsibilities are placed in the right layer or module.","Business logic in a UI component is harder to test and reuse."],
+      ["a3","No new pattern is introduced when an existing one already solves it.","Every new pattern is something every contributor has to learn."],
+      ["a4","Coupling is minimized between unrelated modules.","Tight coupling turns a five-minute fix into a four-file change."],
+      ["a5","The abstraction level matches the problem.","Over-engineering a one-off is as costly as under-engineering something reused."],
+      ["a6","Naming reflects domain concepts, not implementation details.","Domain names survive a database migration; implementation names don't."],
+      ["a7","The change is consistent with similar solved problems elsewhere.","Consistency lets a reviewer recognize a pattern instead of re-deriving it."],
+      ["a8","New dependencies have a justified trade-off.","Bundle size, maintenance, and license terms are real costs."]
+    ]},
+    { key: "quality", title: "Code Quality", items: [
+      ["q1","Functions do one thing, and the name says what that thing is.","A function doing three things can't be tested in isolation."],
+      ["q2","No dead code, commented-out blocks, or debug statements.","Version control already remembers deleted code."],
+      ["q3","Names are descriptive without being verbose.","Clarity at a glance beats cleverness."],
+      ["q4","Error handling is explicit, not silently swallowed.","An empty catch block is a bug report waiting to happen."],
+      ["q5","No magic numbers or strings without a named constant.","Named constants explain themselves; raw values don't."],
+      ["q6","Duplication is avoided, but not at the cost of readability.","DRY is a guideline, not a religion."],
+      ["q7","Control flow is easy to follow.","Deep nesting needs a flowchart to parse."],
+      ["q8","The diff is reviewable in scope and size.","A 40-file PR is a process failure, not a review challenge."],
+      ["q9","Comments explain why, not what.","The code already says what it does."],
+      ["q10","Edge cases are visibly handled.","The happy path gets demoed; the edge cases get paged."],
+      ["q11","The code doesn't rely on implicit, fragile behavior.","Undocumented ordering or defaults are landmines for upgraders."],
+      ["q12","Formatting matches the project's conventions.","If the linter didn't catch it, fix that in CI instead."]
+    ]},
+    { key: "testing", title: "Testing", items: [
+      ["t1","New behavior has new tests, not just passing old ones.","Passing tests prove old behavior; they say nothing about new behavior."],
+      ["t2","Tests verify behavior, not implementation details.","Tests on internals break on every refactor."],
+      ["t3","At least one test covers the unhappy path.","The golden path rarely causes incidents."],
+      ["t4","Tests are deterministic, no flaky timing or randomness.","A flaky test erodes trust in the whole suite."],
+      ["t5","Bug fixes include a regression test.","Otherwise the same bug reappears in a different shape."],
+      ["t6","Test names describe the scenario.","A failing test should explain itself at 11pm."]
+    ]},
+    { key: "secperf", title: "Performance & Security", items: [
+      ["p1","No obvious N+1 queries or loops over large collections.","Invisible with test data, catastrophic at scale."],
+      ["p2","User input is validated before touching anything sensitive.","Frontend validation is not a security boundary."],
+      ["p3","Secrets and credentials are not hardcoded or logged.","Once a secret hits version control, rotation is the only fix."],
+      ["p4","New endpoints respect existing authorization rules.","Bypassing a permission check is how privilege escalation happens."],
+      ["p5","No new attack surface without a clear mitigation.","File uploads and raw SQL are common exploit starting points."],
+      ["p6","Memory and resource usage is bounded.","Unbounded caches work in dev and fall over in production."],
+      ["p7","Third-party data is treated as untrusted.","\"It's a partner API\" isn't the same as \"safe to trust.\""],
+      ["p8","Hot-path changes show evidence performance was considered.","A benchmark beats \"it felt fine on my machine.\""]
+    ]},
+    { key: "docs", title: "Documentation", items: [
+      ["d1","Public functions and endpoints have docs where intent isn't obvious.","Good naming reduces, but doesn't eliminate, the need for docs."],
+      ["d2","README or API docs are updated if usage changed.","Outdated docs actively mislead the next reader."],
+      ["d3","Breaking changes are called out explicitly.","Nobody reads every line of every diff."],
+      ["d4","Config or environment variable changes are documented.","An undocumented required env var is a guaranteed support ticket."],
+      ["d5","New dependencies have a one-line note on why.","Saves the next person from reverse-engineering the decision."]
+    ]},
+    { key: "standards", title: "Standards Compliance", items: [
+      ["s1","The change follows the team's style guide and ADRs.","A decision already made shouldn't be re-litigated per PR."],
+      ["s2","CI checks pass, and you read why, not just that it's green.","A flaky pass isn't the same as correct code."],
+      ["s3","Commit messages are useful out of context.","git blame is most useful exactly when context is gone."],
+      ["s4","Accessibility basics are respected for user-facing changes.","Labels, contrast, and keyboard nav decide who the feature works for."]
+    ]},
+    { key: "final", title: "Final Considerations", items: [
+      ["f1","You'd be comfortable being paged about this code at 3am.","The best gut-check for whether you actually understood it."],
+      ["f2","Feedback is about the code, not the person.","\"This is doing too much\" invites discussion, not defense."],
+      ["f3","If you didn't fully review something, you said so.","An approval should mean what it says."]
+    ]}
+  ];
+
+  var STORAGE_KEY = "prReviewCanvas.progress.v1";
+  var THEME_KEY = "prReviewCanvas.theme";
+  var TOTAL = DATA.reduce(function (n, c) { return n + c.items.length; }, 0);
+  var CIRC = 364.4;
+
+  var state = {};
+  try {
+    state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+  } catch (e) { state = {}; }
+
+  function save() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  function checkedCountIn(cat) {
+    return cat.items.filter(function (it) { return !!state[it[0]]; }).length;
+  }
+
+  function render() {
+    var wrap = document.getElementById("categories");
+    var nav = document.getElementById("navList");
+    wrap.innerHTML = "";
+    nav.innerHTML = "";
+
+    DATA.forEach(function (cat, idx) {
+      var done = checkedCountIn(cat);
+      var pct = Math.round((done / cat.items.length) * 100);
+
+      var details = document.createElement("details");
+      details.className = "category";
+      details.id = "cat-" + cat.key;
+      details.open = true;
+
+      var summary = document.createElement("summary");
+      summary.innerHTML =
+        '<div class="cat-left">' +
+          '<span class="cat-num mono">' + String(idx + 1).padStart(2, "0") + '</span>' +
+          '<span class="cat-title">' + cat.title + '</span>' +
+        '</div>' +
+        '<div class="cat-right">' +
+          '<div class="mini-bar"><div class="mini-bar-fill" style="width:' + pct + '%; background:' + (pct === 100 ? "var(--orange)" : "var(--blue)") + '"></div></div>' +
+          '<span class="cat-frac mono">' + done + '/' + cat.items.length + '</span>' +
+          '<span class="cat-chevron">&#9656;</span>' +
+        '</div>';
+      details.appendChild(summary);
+
+      var itemsBox = document.createElement("div");
+      itemsBox.className = "items";
+
+      cat.items.forEach(function (it) {
+        var id = it[0], text = it[1], why = it[2];
+        var checked = !!state[id];
+        var row = document.createElement("div");
+        row.className = "item" + (checked ? " checked" : "");
+        row.innerHTML =
+          '<input type="checkbox" id="chk-' + id + '" ' + (checked ? "checked" : "") + '>' +
+          '<label for="chk-' + id + '">' +
+            '<div class="item-text">' + text + '</div>' +
+            '<div class="item-why">Why: ' + why + '</div>' +
+          '</label>';
+        var box = row.querySelector("input");
+        box.addEventListener("change", function () {
+          state[id] = box.checked;
+          save();
+          render();
+        });
+        itemsBox.appendChild(row);
+      });
+
+      details.appendChild(itemsBox);
+      wrap.appendChild(details);
+
+      var navBtn = document.createElement("button");
+      navBtn.className = "nav-item";
+      navBtn.type = "button";
+      navBtn.innerHTML =
+        '<span>' + cat.title + '</span>' +
+        '<span class="nav-count mono' + (pct === 100 ? " done" : "") + '">' + done + '/' + cat.items.length + '</span>';
+      navBtn.addEventListener("click", function () {
+        details.open = true;
+        details.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      nav.appendChild(navBtn);
+    });
+
+    updateGauge();
+  }
+
+  function updateGauge() {
+    var done = 0;
+    DATA.forEach(function (cat) { done += checkedCountIn(cat); });
+    var pct = Math.round((done / TOTAL) * 100);
+    var ring = document.getElementById("gaugeRing");
+    var offset = CIRC - (CIRC * pct) / 100;
+    ring.style.strokeDashoffset = String(offset);
+    ring.style.stroke = pct >= 100 ? "var(--orange)" : "var(--blue)";
+    document.getElementById("gaugeNum").textContent = pct + "%";
+    document.getElementById("gaugeSub").textContent = done + " of " + TOTAL + " checked";
+  }
+
+  function toast(msg) {
+    var t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(function () { t.classList.remove("show"); }, 1800);
+  }
+
+  function buildSummaryText() {
+    var lines = ["PR Review Canvas — progress summary", ""];
+    var done = 0;
+    DATA.forEach(function (cat) {
+      var catDone = checkedCountIn(cat);
+      done += catDone;
+      lines.push(cat.title + " (" + catDone + "/" + cat.items.length + ")");
+      cat.items.forEach(function (it) {
+        lines.push((state[it[0]] ? "[x] " : "[ ] ") + it[1]);
+      });
+      lines.push("");
+    });
+    lines.unshift("Overall: " + done + "/" + TOTAL + " (" + Math.round((done / TOTAL) * 100) + "%)");
+    lines.unshift("");
+    return lines.join("\n");
+  }
+
+  document.getElementById("copyBtn").addEventListener("click", function () {
+    var text = buildSummaryText();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        toast("Summary copied to clipboard");
+      }, function () {
+        toast("Couldn't copy — try the download button");
+      });
+    } else {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); toast("Summary copied to clipboard"); }
+      catch (e) { toast("Couldn't copy — try the download button"); }
+      document.body.removeChild(ta);
+    }
+  });
+
+  document.getElementById("downloadBtn").addEventListener("click", function () {
+    var blob = new Blob([buildSummaryText()], { type: "text/plain" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "pr-review-progress.txt";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", function () {
+    if (window.confirm("Reset all checked items? This can't be undone.")) {
+      state = {};
+      save();
+      render();
+      toast("Checklist reset");
+    }
+  });
+
+  var allOpen = true;
+  function setAllOpen(open) {
+    document.querySelectorAll(".category").forEach(function (d) { d.open = open; });
+    allOpen = open;
+    document.getElementById("toggleAllBtn").textContent = open ? "Collapse all" : "Expand all";
+  }
+  document.getElementById("toggleAllBtn").addEventListener("click", function () { setAllOpen(!allOpen); });
+  document.getElementById("expandTop").addEventListener("click", function () { setAllOpen(true); });
+
+  function applyTheme(theme) {
+    document.body.setAttribute("data-theme", theme);
+    try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+    document.getElementById("themeToggle").textContent = theme === "dark" ? "◐" : "◑";
+    updateGauge();
+  }
+  document.getElementById("themeToggle").addEventListener("click", function () {
+    var current = document.body.getAttribute("data-theme");
+    applyTheme(current === "dark" ? "light" : "dark");
+  });
+
+  var savedTheme = "dark";
+  try { savedTheme = localStorage.getItem(THEME_KEY) || "dark"; } catch (e) {}
+  applyTheme(savedTheme);
+
+  render();
+})();
+</script>
+</body>
+</html>
