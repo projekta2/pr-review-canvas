@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PR Review Canvas — Lista de verificación interactiva</title>
+<meta name="description" content="Una lista de verificación interactiva para revisiones de código, con puntuación de madurez y funcionamiento sin conexión. Parte del kit PR Review Canvas de Projekta2." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  html, body[data-theme="dark"] {
+    --bg: #0a0c10;
+    --surface: #11141b;
+    --surface-2: #161a22;
+    --border: #1f2430;
+    --text: #f5f5f4;
+    --text-dim: #9aa3af;
+    --text-faint: #5b6373;
+    --blue: #3b82f6;
+    --orange: #f97316;
+    --track: #1f2430;
+    --focus: #60a5fa;
+  }
+  body[data-theme="light"] {
+    --bg: #f6f6f4;
+    --surface: #ffffff;
+    --surface-2: #f0f0ed;
+    --border: #e3e2dd;
+    --text: #16181d;
+    --text-dim: #5b6373;
+    --text-faint: #8a8f99;
+    --blue: #2563eb;
+    --orange: #ea580c;
+    --track: #e3e2dd;
+    --focus: #2563eb;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0,0,0,0); white-space: nowrap;
+  }
+
+  .shell {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    max-width: 1180px;
+    margin: 0 auto;
+    min-height: 100vh;
+  }
+  @media (max-width: 860px) {
+    .shell { grid-template-columns: 1fr; }
+  }
+
+  /* ---- Barra lateral ---- */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    padding: 28px 20px;
+    border-right: 1px solid var(--border);
+    height: 100vh;
+    overflow-y: auto;
+  }
+  @media (max-width: 860px) {
+    .sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+  }
+  .brand { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+  .brand-title { font-size: 15px; font-weight: 600; }
+  .brand-sub { font-size: 12px; color: var(--text-faint); margin-top: 2px; }
+  .theme-btn {
+    background: var(--surface-2); border: 1px solid var(--border); color: var(--text);
+    border-radius: 8px; width: 34px; height: 34px; cursor: pointer; font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .theme-btn:hover { border-color: var(--text-faint); }
+
+  .gauge-wrap { display: flex; flex-direction: column; align-items: center; padding: 18px 0 22px; }
+  .gauge-label { font-size: 11px; letter-spacing: 1px; color: var(--text-faint); text-transform: uppercase; margin-top: 10px; }
+  .gauge-sub { font-size: 12px; color: var(--text-dim); margin-top: 2px; text-align: center; }
+
+  .nav-list { list-style: none; margin: 0 0 18px; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+  .nav-item {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    padding: 8px 10px; border-radius: 8px; cursor: pointer; border: 1px solid transparent;
+    font-size: 13px; color: var(--text-dim); background: none; width: 100%; text-align: left;
+  }
+  .nav-item:hover { background: var(--surface-2); color: var(--text); }
+  .nav-count { font-size: 11px; color: var(--text-faint); flex-shrink: 0; }
+  .nav-count.done { color: var(--orange); }
+
+  .actions { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  .btn {
+    font-family: inherit; font-size: 13px; font-weight: 500; padding: 9px 12px;
+    border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2);
+    color: var(--text); cursor: pointer; text-align: left;
+  }
+  .btn:hover { border-color: var(--text-faint); }
+  .btn.primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .btn.primary:hover { opacity: 0.92; }
+  .btn.ghost { background: transparent; }
+
+  /* ---- Principal ---- */
+  .main { padding: 36px 32px 80px; min-width: 0; }
+  @media (max-width: 860px) { .main { padding: 24px 18px 60px; } }
+  .page-head h1 { font-size: 24px; font-weight: 700; margin: 0 0 6px; }
+  .page-head p { font-size: 14px; color: var(--text-dim); margin: 0 0 4px; max-width: 560px; }
+  .page-head .back { font-size: 13px; margin-top: 10px; display: inline-block; }
+
+  .toolbar { display: flex; gap: 8px; margin: 22px 0 18px; flex-wrap: wrap; }
+
+  .category {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .category summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .category summary::-webkit-details-marker { display: none; }
+  .cat-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .cat-num {
+    font-size: 12px; color: var(--text-faint); flex-shrink: 0; width: 20px;
+  }
+  .cat-title { font-size: 15px; font-weight: 600; }
+  .cat-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .cat-frac { font-size: 13px; color: var(--text-dim); }
+  .cat-chevron { transition: transform 0.15s ease; color: var(--text-faint); font-size: 12px; }
+  .category[open] .cat-chevron { transform: rotate(90deg); }
+  @media (prefers-reduced-motion: reduce) {
+    .cat-chevron { transition: none; }
+  }
+
+  .mini-bar { width: 60px; height: 4px; border-radius: 2px; background: var(--track); overflow: hidden; flex-shrink: 0; }
+  .mini-bar-fill { height: 100%; border-radius: 2px; background: var(--blue); transition: width 0.25s ease, background 0.25s ease; }
+  @media (prefers-reduced-motion: reduce) { .mini-bar-fill { transition: none; } }
+
+  .items { border-top: 1px solid var(--border); padding: 6px 10px 12px; }
+  .item {
+    display: flex; align-items: flex-start; gap: 10px; padding: 10px 8px; border-radius: 8px;
+  }
+  .item:hover { background: var(--surface-2); }
+  .item input[type="checkbox"] {
+    margin-top: 3px; width: 17px; height: 17px; accent-color: var(--orange); flex-shrink: 0; cursor: pointer;
+  }
+  .item label { cursor: pointer; flex: 1; min-width: 0; }
+  .item-text { font-size: 14px; }
+  .item.checked .item-text { color: var(--text-faint); text-decoration: line-through; }
+  .item-why { font-size: 12.5px; color: var(--text-dim); margin-top: 3px; }
+  .item.checked .item-why { color: var(--text-faint); }
+
+  #toast {
+    position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(10px);
+    background: var(--surface); border: 1px solid var(--border); color: var(--text);
+    padding: 10px 16px; border-radius: 8px; font-size: 13px; opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease; pointer-events: none;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  @media (prefers-reduced-motion: reduce) { #toast { transition: none; } }
+</style>
+</head>
+<body data-theme="dark">
+<h1 class="sr-only">Lista de verificación interactiva para revisiones de código con 51 elementos en 8 categorías, puntuación de madurez y progreso guardado en el navegador.</h1>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div>
+        <div class="brand-title">PR Review Canvas</div>
+        <div class="brand-sub">por Projekta2</div>
+      </div>
+      <button class="theme-btn" id="themeToggle" aria-label="Cambiar entre tema claro y oscuro">◐</button>
+    </div>
+
+    <div class="gauge-wrap">
+      <svg width="140" height="140" viewBox="0 0 140 140" role="img" aria-label="Puntuación de madurez de la revisión">
+        <circle cx="70" cy="70" r="58" fill="none" stroke="var(--track)" stroke-width="11"></circle>
+        <circle id="gaugeRing" cx="70" cy="70" r="58" fill="none" stroke="var(--blue)" stroke-width="11"
+                stroke-linecap="round" transform="rotate(-90 70 70)"
+                stroke-dasharray="364.4" stroke-dashoffset="364.4"
+                style="transition: stroke-dashoffset 0.4s ease, stroke 0.4s ease;"></circle>
+        <text id="gaugeNum" x="70" y="76" text-anchor="middle" class="mono" font-size="30" font-weight="600" fill="var(--text)">0%</text>
+      </svg>
+      <div class="gauge-label">Madurez de la revisión</div>
+      <div class="gauge-sub" id="gaugeSub">0 de 51 marcados</div>
+    </div>
+
+    <ul class="nav-list" id="navList"></ul>
+
+    <div class="actions">
+      <button class="btn ghost" id="toggleAllBtn">Contraer todo</button>
+      <button class="btn ghost" id="copyBtn">Copiar resumen</button>
+      <button class="btn ghost" id="downloadBtn">Descargar .txt</button>
+      <button class="btn ghost" id="resetBtn">Reiniciar lista</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <h1>La lista de verificación para PR</h1>
+      <p>51 elementos, 8 categorías, una razón para cada línea. Marca los que vayas completando: tu progreso se guarda solo en este navegador, no se envía a ningún sitio.</p>
+      <a class="back" href="https://github.com/projekta2/pr-review-canvas">← Volver al repositorio en GitHub</a>
+    </div>
+
+    <div class="toolbar">
+      <button class="btn primary" id="expandTop">Expandir todo</button>
+    </div>
+
+    <div id="categories"></div>
+  </main>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var DATA = [
+    { key: "context", title: "Contexto y propósito", items: [
+      ["c1","La descripción del PR indica claramente qué cambió y por qué.","Quien lea en el futuro necesita entender la intención sin tener que ir al sistema de incidencias."],
+      ["c2","El PR enlaza con la incidencia, tarea o especificación correspondiente.","La trazabilidad es más importante cuando el PR ya es historia."],
+      ["c3","El tamaño del PR coincide con el alcance declarado.","La dispersión del alcance es la mayor causa de revisiones lentas."],
+      ["c4","El título es lo suficientemente específico para ser útil en un registro de cambios.","\"Corregir bug\" no dice nada un año después."],
+      ["c5","Entiendes el problema que resuelve el PR antes de leer el código.","No se puede juzgar una solución sin conocer el problema."]
+    ]},
+    { key: "architecture", title: "Arquitectura y diseño", items: [
+      ["a1","El cambio encaja en la arquitectura existente, o justifica explícitamente su desviación.","La deriva arquitectónica silenciosa crea cinco formas de hacer lo mismo."],
+      ["a2","Las responsabilidades se sitúan en la capa o módulo adecuados.","La lógica de negocio en un componente de interfaz es más difícil de probar y reutilizar."],
+      ["a3","No se introduce un nuevo patrón si ya existe uno que resuelve el mismo problema.","Cada nuevo patrón es algo que todos los colaboradores deben aprender."],
+      ["a4","El acoplamiento entre módulos no relacionados es mínimo.","Un acoplamiento fuerte convierte una corrección de cinco minutos en un cambio de cuatro archivos."],
+      ["a5","El nivel de abstracción es el adecuado para el problema.","Sobrediseñar algo de un solo uso es tan costoso como infradiseñar algo que se reutiliza."],
+      ["a6","Los nombres reflejan conceptos del dominio, no detalles de implementación.","Los nombres del dominio sobreviven a una migración de base de datos; los de implementación no."],
+      ["a7","El cambio es coherente con soluciones similares aplicadas en otras partes.","La coherencia permite al revisor reconocer un patrón en lugar de tener que redescubrirlo."],
+      ["a8","Las nuevas dependencias tienen una justificación equilibrada.","El tamaño del empaquetado, el mantenimiento y las licencias son costes reales."]
+    ]},
+    { key: "quality", title: "Calidad del código", items: [
+      ["q1","Las funciones hacen una sola cosa y su nombre indica lo que hacen.","Una función que hace tres cosas no se puede probar de forma aislada."],
+      ["q2","No hay código muerto, bloques comentados o trazas de depuración.","El control de versiones ya recuerda el código borrado."],
+      ["q3","Los nombres son descriptivos sin ser excesivamente largos.","La claridad a primera vista vale más que la astucia."],
+      ["q4","El manejo de errores es explícito; no se tragan silenciosamente.","Un bloque catch vacío es un informe de error esperando a ocurrir."],
+      ["q5","No hay números mágicos ni cadenas sin una constante con nombre.","Las constantes con nombre se explican solas; los valores literales no."],
+      ["q6","Se evita la duplicación, pero no a costa de la legibilidad.","DRY es una guía, no una religión."],
+      ["q7","El flujo de control es fácil de seguir.","El anidamiento profundo necesita un diagrama de flujo para entenderse."],
+      ["q8","El diff es revisable en alcance y tamaño.","Un PR de 40 archivos es un fallo de proceso, no un desafío para el revisor."],
+      ["q9","Los comentarios explican el por qué, no el qué.","El código ya dice lo que hace."],
+      ["q10","Los casos límite se gestionan de forma visible.","El camino feliz se demuestra; los casos límite provocan incidentes."],
+      ["q11","El código no depende de comportamientos implícitos o frágiles.","La falta de documentación sobre el orden o los valores predeterminados es una trampa para quien actualice."],
+      ["q12","El formato sigue las convenciones del proyecto.","Si el linter no lo ha detectado, mejor arreglarlo en CI que en cada revisión."]
+    ]},
+    { key: "testing", title: "Pruebas", items: [
+      ["t1","El nuevo comportamiento tiene nuevas pruebas, no solo que pasen las antiguas.","Que pasen las pruebas existentes solo demuestra que no se rompió lo anterior; no dice nada sobre el nuevo comportamiento."],
+      ["t2","Las pruebas verifican el comportamiento, no los detalles de implementación.","Las pruebas sobre los internos se rompen en cada refactorización."],
+      ["t3","Al menos una prueba cubre el camino infeliz.","El camino feliz raramente causa incidentes."],
+      ["t4","Las pruebas son deterministas; no hay tiempos aleatorios, orden impredecible ni aleatoriedad sin semilla.","Una prueba no determinista que se vuelve a ejecutar hasta que pasa es peor que no tener prueba: erosiona la confianza en toda la suite."],
+      ["t5","Si se corrige un error, se incluye una prueba de regresión.","De lo contrario, el mismo error reaparece con otra forma."],
+      ["t6","Los nombres de las pruebas describen el escenario.","Una prueba fallida debe explicarse por sí misma a las 11 de la noche."]
+    ]},
+    { key: "secperf", title: "Rendimiento y seguridad", items: [
+      ["p1","No hay consultas N+1 obvias ni bucles sobre colecciones grandes.","Invisible con datos de prueba, catastrófico en producción."],
+      ["p2","Las entradas de usuario se validan antes de tocar algo sensible.","La validación en el frontend no es un límite de seguridad."],
+      ["p3","No hay secretos, tokens o credenciales hardcodeadas o registradas en logs.","Una vez que un secreto llega al historial de control de versiones, la única solución es rotarlo."],
+      ["p4","Los nuevos extremos respetan las reglas de autorización existentes.","Pasar por alto una comprobación de permisos es cómo ocurre la escalada de privilegios."],
+      ["p5","No se añade nueva superficie de ataque sin una mitigación clara.","Las subidas de archivos y el SQL directo son puntos de partida comunes para exploits."],
+      ["p6","El uso de memoria y recursos está acotado.","Una caché sin límite funciona en desarrollo y se cae en producción."],
+      ["p7","Los datos de terceros se tratan como no confiables.","\"Es la API de un socio\" no es lo mismo que \"confiable\"."],
+      ["p8","Los cambios en rutas críticas muestran que se ha considerado el rendimiento.","Un benchmark vale más que \"en mi máquina funcionaba bien\"."]
+    ]},
+    { key: "docs", title: "Documentación", items: [
+      ["d1","Las funciones y extremos públicos tienen documentación cuando la intención no es obvia.","Un buen nombre reduce la necesidad de comentarios, pero no la elimina."],
+      ["d2","El README o la documentación de la API se actualizan si cambia el uso.","La documentación desactualizada engaña activamente al siguiente lector."],
+      ["d3","Los cambios disruptivos se señalan explícitamente.","Nadie lee todas las líneas de todos los diffs."],
+      ["d4","Los cambios en la configuración o variables de entorno están documentados.","Una variable de entorno nueva sin documentar es un ticket de soporte asegurado."],
+      ["d5","Las nuevas dependencias incluyen una nota de una línea sobre por qué se añaden.","Ahorra a la siguiente persona tener que reverse-engineering la decisión."]
+    ]},
+    { key: "standards", title: "Cumplimiento de estándares", items: [
+      ["s1","El cambio sigue la guía de estilo del equipo y los ADR.","Una decisión ya tomada no debería reabrirse en cada PR."],
+      ["s2","Las comprobaciones de CI pasan, y has leído por qué, no solo que esté en verde.","Un pase inestable no es lo mismo que código correcto."],
+      ["s3","Los mensajes de commit son útiles fuera de contexto.","git blame es más útil justo cuando el contexto ha desaparecido."],
+      ["s4","Se respetan los aspectos básicos de accesibilidad en cambios visibles para el usuario.","Las etiquetas, el contraste y la navegación por teclado determinan si la función funciona para todos."]
+    ]},
+    { key: "final", title: "Consideraciones finales", items: [
+      ["f1","Te sentirías cómodo si te llamaran por este código a las 3 de la madrugada.","La mejor prueba de fuego para saber si realmente lo has entendido."],
+      ["f2","La retroalimentación es sobre el código, no sobre la persona.","\"Esta función está haciendo demasiado\" invita a la discusión, no a la defensa."],
+      ["f3","Si no has revisado algo completamente, lo dices.","Una aprobación debe significar lo que dice."]
+    ]}
+  ];
+
+  var STORAGE_KEY = "prReviewCanvas.progress.v1";
+  var THEME_KEY = "prReviewCanvas.theme";
+  var TOTAL = DATA.reduce(function (n, c) { return n + c.items.length; }, 0);
+  var CIRC = 364.4;
+
+  var state = {};
+  try {
+    state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+  } catch (e) { state = {}; }
+
+  function save() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  function checkedCountIn(cat) {
+    return cat.items.filter(function (it) { return !!state[it[0]]; }).length;
+  }
+
+  function render() {
+    var wrap = document.getElementById("categories");
+    var nav = document.getElementById("navList");
+    wrap.innerHTML = "";
+    nav.innerHTML = "";
+
+    DATA.forEach(function (cat, idx) {
+      var done = checkedCountIn(cat);
+      var pct = Math.round((done / cat.items.length) * 100);
+
+      var details = document.createElement("details");
+      details.className = "category";
+      details.id = "cat-" + cat.key;
+      details.open = true;
+
+      var summary = document.createElement("summary");
+      summary.innerHTML =
+        '<div class="cat-left">' +
+          '<span class="cat-num mono">' + String(idx + 1).padStart(2, "0") + '</span>' +
+          '<span class="cat-title">' + cat.title + '</span>' +
+        '</div>' +
+        '<div class="cat-right">' +
+          '<div class="mini-bar"><div class="mini-bar-fill" style="width:' + pct + '%; background:' + (pct === 100 ? "var(--orange)" : "var(--blue)") + '"></div></div>' +
+          '<span class="cat-frac mono">' + done + '/' + cat.items.length + '</span>' +
+          '<span class="cat-chevron">&#9656;</span>' +
+        '</div>';
+      details.appendChild(summary);
+
+      var itemsBox = document.createElement("div");
+      itemsBox.className = "items";
+
+      cat.items.forEach(function (it) {
+        var id = it[0], text = it[1], why = it[2];
+        var checked = !!state[id];
+        var row = document.createElement("div");
+        row.className = "item" + (checked ? " checked" : "");
+        row.innerHTML =
+          '<input type="checkbox" id="chk-' + id + '" ' + (checked ? "checked" : "") + '>' +
+          '<label for="chk-' + id + '">' +
+            '<div class="item-text">' + text + '</div>' +
+            '<div class="item-why">Por qué: ' + why + '</div>' +
+          '</label>';
+        var box = row.querySelector("input");
+        box.addEventListener("change", function () {
+          state[id] = box.checked;
+          save();
+          render();
+        });
+        itemsBox.appendChild(row);
+      });
+
+      details.appendChild(itemsBox);
+      wrap.appendChild(details);
+
+      var navBtn = document.createElement("button");
+      navBtn.className = "nav-item";
+      navBtn.type = "button";
+      navBtn.innerHTML =
+        '<span>' + cat.title + '</span>' +
+        '<span class="nav-count mono' + (pct === 100 ? " done" : "") + '">' + done + '/' + cat.items.length + '</span>';
+      navBtn.addEventListener("click", function () {
+        details.open = true;
+        details.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      nav.appendChild(navBtn);
+    });
+
+    updateGauge();
+  }
+
+  function updateGauge() {
+    var done = 0;
+    DATA.forEach(function (cat) { done += checkedCountIn(cat); });
+    var pct = Math.round((done / TOTAL) * 100);
+    var ring = document.getElementById("gaugeRing");
+    var offset = CIRC - (CIRC * pct) / 100;
+    ring.style.strokeDashoffset = String(offset);
+    ring.style.stroke = pct >= 100 ? "var(--orange)" : "var(--blue)";
+    document.getElementById("gaugeNum").textContent = pct + "%";
+    document.getElementById("gaugeSub").textContent = done + " de " + TOTAL + " marcados";
+  }
+
+  function toast(msg) {
+    var t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(function () { t.classList.remove("show"); }, 1800);
+  }
+
+  function buildSummaryText() {
+    var lines = ["PR Review Canvas — resumen del progreso", ""];
+    var done = 0;
+    DATA.forEach(function (cat) {
+      var catDone = checkedCountIn(cat);
+      done += catDone;
+      lines.push(cat.title + " (" + catDone + "/" + cat.items.length + ")");
+      cat.items.forEach(function (it) {
+        lines.push((state[it[0]] ? "[x] " : "[ ] ") + it[1]);
+      });
+      lines.push("");
+    });
+    lines.unshift("Total: " + done + "/" + TOTAL + " (" + Math.round((done / TOTAL) * 100) + "%)");
+    lines.unshift("");
+    return lines.join("\n");
+  }
+
+  document.getElementById("copyBtn").addEventListener("click", function () {
+    var text = buildSummaryText();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        toast("Resumen copiado al portapapeles");
+      }, function () {
+        toast("No se ha podido copiar — prueba con el botón de descarga");
+      });
+    } else {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); toast("Resumen copiado al portapapeles"); }
+      catch (e) { toast("No se ha podido copiar — prueba con el botón de descarga"); }
+      document.body.removeChild(ta);
+    }
+  });
+
+  document.getElementById("downloadBtn").addEventListener("click", function () {
+    var blob = new Blob([buildSummaryText()], { type: "text/plain" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "pr-review-progress.txt";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", function () {
+    if (window.confirm("¿Reiniciar todos los elementos marcados? Esta acción no se puede deshacer.")) {
+      state = {};
+      save();
+      render();
+      toast("Lista reiniciada");
+    }
+  });
+
+  var allOpen = true;
+  function setAllOpen(open) {
+    document.querySelectorAll(".category").forEach(function (d) { d.open = open; });
+    allOpen = open;
+    document.getElementById("toggleAllBtn").textContent = open ? "Contraer todo" : "Expandir todo";
+  }
+  document.getElementById("toggleAllBtn").addEventListener("click", function () { setAllOpen(!allOpen); });
+  document.getElementById("expandTop").addEventListener("click", function () { setAllOpen(true); });
+
+  function applyTheme(theme) {
+    document.body.setAttribute("data-theme", theme);
+    try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+    document.getElementById("themeToggle").textContent = theme === "dark" ? "◐" : "◑";
+    updateGauge();
+  }
+  document.getElementById("themeToggle").addEventListener("click", function () {
+    var current = document.body.getAttribute("data-theme");
+    applyTheme(current === "dark" ? "light" : "dark");
+  });
+
+  var savedTheme = "dark";
+  try { savedTheme = localStorage.getItem(THEME_KEY) || "dark"; } catch (e) {}
+  applyTheme(savedTheme);
+
+  render();
+})();
+</script>
+</body>
+</html>
