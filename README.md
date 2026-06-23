@@ -16,6 +16,7 @@
 [![Built with care](https://img.shields.io/badge/built%20with%20%E2%9D%A4%EF%B8%8F%20by-Alexandre%20Iglesias-0a0c10.svg)](https://github.com/projekta2)
 [![Made by Projekta2](https://img.shields.io/badge/made%20by-Projekta2-0a0c10.svg)](https://github.com/projekta2)
 [![Contributors](https://img.shields.io/github/contributors/projekta2/pr-review-canvas?style=flat-square&color=8b5cf6)](https://github.com/projekta2/pr-review-canvas/graphs/contributors)
+[![GitHub Issues](https://img.shields.io/github/issues/projekta2/pr-review-canvas?style=flat-square&color=f97316&labelColor=0c0f1a)](https://github.com/projekta2/pr-review-canvas/issues)
 
 [**🟢 Open the interactive checklist →**](https://projekta2.github.io/pr-review-canvas/)
 
