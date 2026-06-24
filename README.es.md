@@ -106,6 +106,6 @@ Este kit mejora con más opiniones de revisores. Nuevos ítems en el checklist, 
 
 <sub>Si esto le ha ahorrado a tu equipo una vuelta de ida y vuelta en un PR, considera darle una estrella al repositorio — ayuda a que otros desarrolladores lo encuentren.</sub>
 
-<a href="https://star-history.com/#projekta2/pr-review-canvas&Date"> <img src="https://api.star-history.com/svg?repos=projekta2/pr-review-canvas&type=Date" width="500" alt="Historial de estrellas"/> </a>
+[![Stars](https://img.shields.io/github/stars/projekta2/pr-review-canvas?style=flat-square&color=f97316&labelColor=0c0f1a)](https://github.com/projekta2/pr-review-canvas/stargazers)
 
 </div>
