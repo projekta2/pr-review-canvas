@@ -63,6 +63,9 @@ No install, no account, no tracking. Open it, check things off, export your note
 | [`resources/code-review-antipatterns.md`](resources/code-review-antipatterns.md) | The recurring ways code review goes wrong, on both sides of the diff |
 | [`resources/notion-template.md`](resources/notion-template.md) | A ready-to-paste version of the checklist for Notion |
 | [`resources/obsidian-template.md`](resources/obsidian-template.md) | A ready-to-paste version of the checklist for Obsidian |
+| [`resources/linear-template.md`](resources/linear-template.md) | A ready-to-paste version of the checklist for Linear |
+| [`resources/jira-template.md`](resources/jira-template.md) | A ready-to-paste version of the checklist for Jira |
+| [`resources/github-projects-template.md`](resources/github-projects-template.md) | A guide to set up a GitHub Projects board for tracking PR reviews with the Canvas methodology |
 
 ## How to use it
 
