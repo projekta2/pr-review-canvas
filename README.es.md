@@ -1,8 +1,7 @@
 <div align="center">
-
 <p align="center">
   <a href="README.md"><img src="https://img.shields.io/badge/🇬🇧-ENGLISH-blue?style=for-the-badge" /></a>
-  <strong> | </strong>
+  <strong> | </strong>
   <a href="README.es.md"><img src="https://img.shields.io/badge/🇪🇸-ESPAÑOL-orange?style=for-the-badge" /></a>
 </p>
 
@@ -13,9 +12,11 @@
 **Un kit de supervivencia para revisiones de código gratuito y de código abierto — checklists, plantillas, guías y un panel interactivo en tiempo real para cualquiera que revise pull requests.**
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-3b82f6.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-f97316.svg)](CONTRIBUTING.md)
+[![PRs Welcome](https://img.shields.io/badge/PRs-bienvenidos-f97316.svg)](CONTRIBUTING.md)
 [![Hecho con cuidado](https://img.shields.io/badge/hecho%20con%20%E2%9D%A4%EF%B8%8F%20por-Alexandre%20Iglesias-0a0c10.svg)](https://github.com/projekta2)
 [![Made by Projekta2](https://img.shields.io/badge/made%20by-Projekta2-0a0c10.svg)](https://github.com/projekta2)
+[![Contributors](https://img.shields.io/github/contributors/projekta2/pr-review-canvas?style=flat-square&color=8b5cf6)](https://github.com/projekta2/pr-review-canvas/graphs/contributors)
+[![GitHub Issues](https://img.shields.io/github/issues/projekta2/pr-review-canvas?style=flat-square&color=f97316&labelColor=0c0f1a)](https://github.com/projekta2/pr-review-canvas/issues)
 
 [**🟢 Abrir el checklist interactivo →**](https://projekta2.github.io/pr-review-canvas/es/)
 
@@ -62,6 +63,9 @@ Sin instalación, sin cuenta, sin rastreo. Ábrelo, marca lo que corresponda y e
 | [`resources/es/code-review-antipatterns.md`](resources/es/code-review-antipatterns.md) | Los patrones recurrentes con los que las revisiones de código salen mal, en ambos lados del diff |
 | [`resources/es/notion-template.md`](resources/es/notion-template.md) | Una versión lista para pegar del checklist en Notion |
 | [`resources/es/obsidian-template.md`](resources/es/obsidian-template.md) | Una versión lista para pegar del checklist en Obsidian |
+| [`resources/es/linear-template.md`](resources/es/linear-template.md) | Una versión lista para pegar del checklist en Linear |
+| [`resources/es/jira-template.md`](resources/es/jira-template.md) | Una versión lista para pegar del checklist en Jira |
+| [`resources/es/github-projects-template.md`](resources/es/github-projects-template.md) | Una guía para configurar un tablero de GitHub Projects para hacer seguimiento de las revisiones con la metodología Canvas |
 
 ## Cómo usarlo
 
