@@ -2,7 +2,21 @@
 
 Thanks for considering a contribution. This project stays useful because reviewers with different experiences add what's missing from their own day-to-day — that's the whole point of it being open.
 
-## Ways to contribute
+## Start here: tasks you can finish today
+
+If you've never contributed to an open-source project before, or you just want something concrete to pick up without having to read the whole codebase, these are real gaps that need filling — each one takes 20–30 minutes:
+
+| Task | File to edit | What to do |
+|---|---|---|
+| Add a checklist item you've actually used | [`checklists/pr-review-checklist.md`](checklists/pr-review-checklist.md) | Add the item under the right category + one sentence explaining the failure mode it prevents |
+| Fix a phrase that feels vague or preachy | [`guides/how-to-give-feedback.md`](guides/how-to-give-feedback.md) | Replace it with a concrete example from a real review (anonymized) |
+| Translate a file to your language | Any file under `checklists/`, `guides/`, `templates/`, or `resources/` | Mirror the file under `i18n/<lang-code>/` keeping the filename identical |
+| Add Linear, Jira, or GitHub Projects template | `resources/linear-template.md`, `resources/jira-template.md`, `resources/github-projects-template.md` | Adapt the checklist format to the tool's native structure |
+| Report a broken link or typo | Anywhere | Open an issue — no PR needed |
+
+Pick one. Open a PR. That's it.
+
+## All the ways to contribute
 
 You don't need to touch code to contribute meaningfully here.
 
