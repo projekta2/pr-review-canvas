@@ -2,7 +2,7 @@
 
 51 ítems distribuidos en 8 categorías. Cada ítem incluye un «por qué» en una sola línea — un checklist sin razones sólo entrena a la gente a marcar casillas sin pensar.
 
-Esta es la versión canónica y con criterio propio. Si tu equipo quiere adaptarla, parte de [`pr-review-checklist-template.md`](pr-review-checklist-template.md) y conserva ésta como referencia. Si prefieres trabajar de forma interactiva con un indicador de progreso, usa el [checklist en vivo](https://projekta2.github.io/pr-review-canvas/es/) o [`interactive-checklist.html`](interactive-checklist.html).
+Esta es la versión canónica y con criterio propio. Si tu equipo quiere adaptarla, parte de [`pr-review-checklist-template.md`](pr-review-checklist-template.md) y conserva ésta como referencia. Si prefieres trabajar de forma interactiva con un indicador de progreso, usa el [checklist en vivo](https://projekta2.github.io/pr-review-canvas/es/)
 
 ---
 
