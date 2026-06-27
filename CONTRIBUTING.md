@@ -10,7 +10,7 @@ If you've never contributed to an open-source project before, or you just want s
 |---|---|---|
 | Add a checklist item you've actually used | [`checklists/pr-review-checklist.md`](checklists/pr-review-checklist.md) | Add the item under the right category + one sentence explaining the failure mode it prevents |
 | Fix a phrase that feels vague or preachy | [`guides/how-to-give-feedback.md`](guides/how-to-give-feedback.md) | Replace it with a concrete example from a real review (anonymized) |
-| Translate a file to your language | Any file under `checklists/`, `guides/`, `templates/`, or `resources/` | Mirror the file under `i18n/<lang-code>/` keeping the filename identical |
+| Translate a file to your language | Any file under `checklists/`, `guides/`, `templates/`, `resources/`, or `examples/` | Mirror the file under `<folder>/<lang-code>/` (e.g. `guides/es/`) keeping the filename identical |
 | Add Linear, Jira, or GitHub Projects template | `resources/linear-template.md`, `resources/jira-template.md`, `resources/github-projects-template.md` | Adapt the checklist format to the tool's native structure |
 | Report a broken link or typo | Anywhere | Open an issue — no PR needed |
 
@@ -22,7 +22,7 @@ You don't need to touch code to contribute meaningfully here.
 
 - **Add a checklist item** you wish someone had told you about, with a one-line "why."
 - **Sharpen a feedback phrase** in [`guides/how-to-give-feedback.md`](guides/how-to-give-feedback.md) — real examples from real reviews (anonymized) are especially welcome.
-- **Translate a file.** If you add a language, mirror the existing file structure under a `i18n/<lang-code>/` folder and keep filenames identical so links still resolve.
+- **Translate a file.** If you add a language, mirror the existing file structure under a `<folder>/<lang-code>/` folder (e.g. `guides/es/`) and keep filenames identical so links still resolve.
 - **Add a team template** for a workflow this kit doesn't cover yet (e.g., reviewing infrastructure-as-code, reviewing data pipeline changes, reviewing design-system PRs).
 - **Report what's wrong.** A checklist item that doesn't hold up, a broken link, a typo — all fair game for an issue.
 
