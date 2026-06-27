@@ -1,56 +1,56 @@
-# A guide for your first code reviews
+# Una guía para tus primeras revisiones de código
 
-You've just been assigned your first PR to review, and you have no idea where to start. That's normal — nobody is born knowing how to review code, and most teams never actually teach it. They just expect you to pick it up by watching other people's comments. This guide is the thing nobody sat you down and explained.
+Te acaban de asignar tu primer PR para revisar, y no tienes ni idea de por dónde empezar. Es normal — nadie nace sabiendo cómo revisar código, y la mayoría de los equipos nunca lo enseñan de verdad. Simplemente esperan que lo vayas aprendiendo observando los comentarios de otros. Esta guía es lo que nadie se sentó a explicarte.
 
-## Before you read a single line of code
+## Antes de leer una sola línea de código
 
-Read the PR description first, fully, before opening the diff. If there isn't one, or it's too thin to understand what's going on, that's already useful information — ask the author for context before you start, rather than guessing.
+Lee primero la descripción del PR, entera, antes de abrir el diff. Si no la hay, o es demasiado escueta para entender qué está pasando, eso ya es información útil — pide contexto al autor antes de empezar, en lugar de adivinar.
 
-Ask yourself: what problem is this solving? If you can't answer that in one sentence, you're not ready to judge whether the solution is good. Go find out — read the linked issue, ask in chat, whatever it takes.
+Pregúntate: ¿qué problema está resolviendo esto? Si no puedes responder eso en una frase, no estás preparado para juzgar si la solución es buena. Ve a averiguarlo — lee la incidencia enlazada, pregunta por chat, lo que haga falta.
 
-## How to actually read the diff
+## Cómo leer el diff de verdad
 
-Don't read it top to bottom in file order. GitHub's default ordering is often alphabetical, which has nothing to do with how the change makes sense. Instead:
+No lo leas de arriba a abajo en el orden de los archivos. El orden por defecto de GitHub suele ser alfabético, que no tiene nada que ver con cómo tiene sentido el cambio. En su lugar:
 
-1. **Find the entry point.** Where does the new behavior actually start — a new function, a new route, a new component? Start there.
-2. **Follow the logic, not the file list.** If the entry point calls into a helper, go read the helper next, even if it's three files away in the diff.
-3. **Read tests last, on purpose.** Tests tell you what the author thinks the code does. Read the implementation first and form your own opinion about what it should do — then check the tests against that, not the other way around.
+1. **Encuentra el punto de entrada.** ¿Dónde empieza realmente el nuevo comportamiento — una nueva función, una nueva ruta, un nuevo componente? Empieza por ahí.
+2. **Sigue la lógica, no la lista de archivos.** Si el punto de entrada llama a un auxiliar, ve a leer ese auxiliar a continuación, aunque esté tres archivos más abajo en el diff.
+3. **Lee las pruebas al final, a propósito.** Las pruebas te dicen lo que el autor cree que hace el código. Lee primero la implementación y forma tu propia opinión sobre lo que debería hacer — luego contrasta las pruebas con eso, no al revés.
 
-## What to look for, roughly in order
+## Qué buscar, más o menos en este orden
 
-1. **Does this do what the description says?** Sounds obvious, but it's the most-skipped step. A PR can be well-written, clean, and tested, and still not actually solve the stated problem.
-2. **Is it in the right place?** A perfectly good piece of logic in the wrong layer (business logic in a view, a database query in a utility function) creates problems later even if it works today.
-3. **Are the edge cases handled?** Empty list, zero, negative numbers, null, the network call that fails halfway through. The happy path almost always works; this is where bugs actually hide.
-4. **Is it tested in a way that means something?** A test that just checks the function ran without throwing isn't really testing anything.
-5. **Could you maintain this in six months?** If the answer is "only if the original author explains it to me again," that's worth raising.
+1. **¿Hace esto lo que dice la descripción?** Parece obvio, pero es el paso que más se salta. Un PR puede estar bien escrito, limpio y probado, y aun así no resolver el problema declarado.
+2. **¿Está en el lugar correcto?** Un trozo de lógica perfectamente válido en la capa equivocada (lógica de negocio en una vista, una consulta de base de datos en una función de utilidad) crea problemas más adelante aunque funcione hoy.
+3. **¿Se gestionan los casos extremos?** Lista vacía, cero, números negativos, null, la llamada de red que falla a mitad. El camino feliz casi siempre funciona; aquí es donde se esconden los bugs de verdad.
+4. **¿Está probado de una manera que signifique algo?** Una prueba que sólo comprueba que la función se ejecutó sin lanzar una excepción no está realmente probando nada.
+5. **¿Podrías mantener esto dentro de seis meses?** Si la respuesta es «sólo si el autor original me lo explica de nuevo», merece la pena mencionarlo.
 
-You don't need to check all of this with equal depth on every PR. A one-line copy fix doesn't need the same scrutiny as a new payment flow. Match your effort to the risk.
+No tienes que revisar todo esto con la misma profundidad en cada PR. Una corrección de una línea de texto de copia no necesita el mismo escrutinio que un nuevo flujo de pago. Adapta el esfuerzo al riesgo.
 
-## How not to feel overwhelmed
+## Cómo no sentirte abrumado
 
-- **You don't have to catch everything.** Review is one layer of defense, not the only one. CI, tests, and staging exist too.
-- **It's fine to approve with comments.** "This looks good, one small suggestion below, not blocking" is a completely valid review. Not everything needs to block a merge.
-- **It's fine to say "I don't have enough context to review this part."** Pretending to understand something you don't helps nobody, least of all you.
-- **Ask questions instead of guessing.** "Why did you choose X over Y here?" reads very differently from "This should be Y instead" when you're not actually sure which is right — and it opens a conversation instead of starting an argument.
+- **No tienes que detectarlo todo.** La revisión es una capa de defensa, no la única. CI, pruebas y staging también existen.
+- **Está bien aprobar con comentarios.** «Esto tiene buena pinta, una pequeña sugerencia abajo, no es bloqueante» es una revisión completamente válida. No todo tiene que bloquear un merge.
+- **Está bien decir «no tengo suficiente contexto para revisar esta parte».** Fingir que entiendes algo que no entiendes no le ayuda a nadie, y menos a ti.
+- **Haz preguntas en lugar de adivinar.** «¿Por qué has elegido X en lugar de Y aquí?» se lee de manera muy diferente a «Esto debería ser Y» cuando en realidad no estás seguro de cuál es correcto — y abre una conversación en lugar de iniciar una discusión.
 
-## Giving your first comments
+## Cómo escribir tus primeros comentarios
 
-Comment on the code, not the person. "This function handles three different responsibilities" is a fact about the code. "You always overcomplicate things" is an attack on the person, even if unintentional. See [`how-to-give-feedback.md`](how-to-give-feedback.md) for a deeper guide on phrasing.
+Comenta sobre el código, no sobre la persona. «Esta función gestiona tres responsabilidades diferentes» es un hecho sobre el código. «Siempre lo complicas todo» es un ataque a la persona, aunque no sea intencionado. Consulta [`how-to-give-feedback.md`](how-to-give-feedback.md) para una guía más detallada sobre cómo formular los comentarios.
 
-A useful template for your first few comments:
+Una plantilla útil para tus primeros comentarios:
 
-> *Observation* — what you noticed.
-> *Why it matters* — the actual consequence, not just "it's not how I'd do it."
-> *Suggestion* — what you'd consider instead, framed as a question if you're not 100% sure.
+> *Observación* — lo que has notado.
+> *Por qué importa* — la consecuencia real, no sólo «no es como yo lo haría».
+> *Sugerencia* — lo que considerarías en su lugar, formulado como pregunta si no estás 100% seguro.
 
-Example: "This loop re-fetches the user on every iteration (observation). With a list of 1,000 items that's 1,000 extra queries (why it matters). Would it work to fetch once before the loop and pass it in? (suggestion, as a question, since there might be a reason I'm missing)."
+Ejemplo: «Este bucle vuelve a buscar el usuario en cada iteración (observación). Con una lista de 1.000 elementos, eso son 1.000 consultas extra (por qué importa). ¿Funcionaría buscarlo una sola vez antes del bucle y pasarlo como parámetro? (sugerencia, como pregunta, ya que puede haber una razón que me estoy perdiendo).»
 
-## When you're not sure if something is a real problem
+## Cuando no estás seguro de si algo es realmente un problema
 
-Ask, don't assert. "Is there a reason this isn't cached?" is honest and invites an answer. "This should be cached" assumes you already know the constraints the author was working under — and sometimes you don't.
+Pregunta, no afirmes. «¿Hay alguna razón por la que esto no está en caché?» es honesto e invita a una respuesta. «Esto debería estar en caché» asume que ya conoces las restricciones con las que trabajaba el autor — y a veces no es así.
 
-## What "approving" actually means
+## Lo que «aprobar» significa realmente
 
-An approval is a statement that you reviewed this and you'd be comfortable being associated with it going to production. It doesn't mean you found every possible issue — it means you did a genuine, honest review at the level of scrutiny the change deserved. If you skimmed a section because you ran out of time or context, say so instead of approving silently.
+Una aprobación es una declaración de que has revisado esto y estarías cómodo asociándote con que llegue a producción. No significa que hayas encontrado todos los problemas posibles — significa que has hecho una revisión genuina y honesta al nivel de escrutinio que merecía el cambio. Si has ojeado una sección porque se te acabó el tiempo o el contexto, dilo en lugar de aprobar en silencio.
 
-Run through [`pr-review-checklist.md`](../checklists/pr-review-checklist.md) on a couple of PRs. It'll feel slow at first. It gets fast.
+Usa [`pr-review-checklist.md`](../../checklists/es/pr-review-checklist.md) en un par de PRs. Al principio se sentirá lento. Se vuelve rápido.
