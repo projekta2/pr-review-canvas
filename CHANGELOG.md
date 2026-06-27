@@ -14,7 +14,11 @@ All notable changes to this project are documented here. Format loosely follows 
 - Four guides: for beginners, for experts, giving feedback, receiving feedback (`guides/`).
 - Three annotated examples: a good PR, a bad PR, and a full reviewed-PR transcript (`examples/`).
 - Code review anti-patterns reference (`resources/code-review-antipatterns.md`).
-- Notion and Obsidian import templates (`resources/`).
+- Notion, Obsidian, Linear, Jira, and GitHub Projects import templates (`resources/`).
+- Full Spanish translation of the entire kit (`*/es/`, `README.es.md`, `CONTRIBUTING.es.md`).
 - Issue templates, PR template, and a markdown link-check GitHub Action for the repo itself (`.github/`).
 
+<!-- No GitHub Release/tag has been published for this version yet. Once one exists, link it here, e.g.:
 [1.0.0]: https://github.com/projekta2/pr-review-canvas/releases/tag/v1.0.0
+-->
+
