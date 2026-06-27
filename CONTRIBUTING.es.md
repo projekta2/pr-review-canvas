@@ -9,7 +9,7 @@ Si nunca has contribuido a un proyecto de código abierto, o simplemente quieres
 | Tarea | Archivo a editar | Qué hacer |
 |---|---|---|
 | Añadir un ítem del checklist que hayas usado de verdad | [`checklists/pr-review-checklist.md`](checklists/pr-review-checklist.md) | Añade el ítem en la categoría correcta + una frase explicando el error que previene |
-| Corregir una frase que suena vaga o aleccionadora | [`guides/how-to-give-feedback.md`](guides/how-to-give-feedback.md) | Reemplázala por un ejemplo concreto de una revisión real (anonimizado) |
+| Corregir una frase que suena vaga o aleccionadora | [`guides/es/how-to-give-feedback.md`](guides/es/how-to-give-feedback.md) | Reemplázala por un ejemplo concreto de una revisión real (anonimizado) |
 | Traducir un archivo a tu idioma | Cualquier archivo de `checklists/`, `guides/`, `templates/`, `resources/` o `examples/` | Copia el archivo bajo `<carpeta>/<código-idioma>/` (p. ej. `guides/es/`) manteniendo el nombre de fichero idéntico |
 | Añadir plantilla para Linear, Jira o GitHub Projects | `resources/linear-template.md`, `resources/jira-template.md`, `resources/github-projects-template.md` | Adapta el formato del checklist a la estructura nativa de la herramienta |
 | Reportar un enlace roto o una errata | Donde sea | Abre un issue — no hace falta PR |
