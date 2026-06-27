@@ -50,7 +50,7 @@ Sin instalación, sin cuenta, sin rastreo. Ábrelo, marca lo que corresponda y e
 |---|---|
 | [`checklists/es/pr-review-checklist.md`](checklists/es/pr-review-checklist.md) | El checklist completo de 51 ítems, organizado en 8 categorías, con un «por qué» para cada ítem |
 | [`docs/es/index.html`](docs/es/index.html) | El checklist interactivo servido en GitHub Pages — funciona sin conexión |
-| [`checklists/pr-review-checklist-template.md`](checklists/pr-review-checklist-template.md) | Una versión en blanco y editable para equipos que quieran adaptarla a sus propios estándares |
+| [`checklists/es/pr-review-checklist-template.md`](checklists/es/pr-review-checklist-template.md) | Una versión en blanco y editable para equipos que quieran adaptarla a sus propios estándares |
 | [`templates/es/pr-template.md`](templates/es/pr-template.md) | Una plantilla ligera de descripción de PR para cambios cotidianos |
 | [`templates/es/pr-template-advanced.md`](templates/es/pr-template-advanced.md) | Una plantilla más completa para cambios complejos, de alto riesgo o entre equipos |
 | [`guides/es/for-beginners.md`](guides/es/for-beginners.md) | Una guía paso a paso para revisar tus primeros PRs sin perderte |
