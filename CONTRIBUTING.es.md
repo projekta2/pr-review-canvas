@@ -51,4 +51,4 @@ Sé el revisor que te gustaría tener revisando tu propio código: directo con e
 
 ## Preguntas
 
-Abre un [debate o issue](../../issues) — no hay lista de correo ni chat separado para este proyecto, intencionadamente, para que el razonamiento quede visible para cualquiera que encuentre el repositorio más adelante.
+Abre un [debate o issue](https://github.com/projekta2/pr-review-canvas/issues) — no hay lista de correo ni chat separado para este proyecto, intencionadamente, para que el razonamiento quede visible para cualquiera que encuentre el repositorio más adelante.
