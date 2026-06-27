@@ -48,7 +48,3 @@ This repo eats its own dog food: please use [`templates/pr-template.md`](templat
 ## Code of conduct
 
 Be the reviewer you'd want reviewing your own code: direct about the problem, generous about the person. Disagreement about technical approaches is welcome and expected. Personal attacks, dismissiveness, or gatekeeping based on someone's experience level are not, and maintainers will close threads that go that direction.
-
-## Questions
-
-Open a [discussion or issue](https://github.com/projekta2/pr-review-canvas/issues) — there's no separate mailing list or chat for this project, on purpose, so the reasoning stays visible to everyone who finds the repo later.
