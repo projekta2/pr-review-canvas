@@ -49,7 +49,8 @@ No install, no account, no tracking. Open it, check things off, export your note
 | Path | What it is |
 |---|---|
 | [`checklists/pr-review-checklist.md`](checklists/pr-review-checklist.md) | The full 51-item checklist, organized into 8 categories, with a "why" for every item |
-| [`checklists/interactive-checklist.html`](checklists/interactive-checklist.html) | The same checklist as a self-contained, offline-capable interactive tool |
+| [`docs/index.html`](docs/index.html) | The live interactive checklist served on GitHub Pages — same checklist, works offline |
+| [`checklists/interactive-checklist.html`](checklists/interactive-checklist.html) | A self-contained, downloadable offline copy of the interactive tool |
 | [`checklists/pr-review-checklist-template.md`](checklists/pr-review-checklist-template.md) | A blank, editable version for teams who want to adapt it to their own standards |
 | [`templates/pr-template.md`](templates/pr-template.md) | A lightweight PR description template for everyday changes |
 | [`templates/pr-template-advanced.md`](templates/pr-template-advanced.md) | A fuller template for complex, high-risk, or cross-team changes |
