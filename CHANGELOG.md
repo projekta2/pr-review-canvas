@@ -17,8 +17,3 @@ All notable changes to this project are documented here. Format loosely follows 
 - Notion, Obsidian, Linear, Jira, and GitHub Projects import templates (`resources/`).
 - Full Spanish translation of the entire kit (`*/es/`, `README.es.md`, `CONTRIBUTING.es.md`).
 - Issue templates, PR template, and a markdown link-check GitHub Action for the repo itself (`.github/`).
-
-<!-- No GitHub Release/tag has been published for this version yet. Once one exists, link it here, e.g.:
-[1.0.0]: https://github.com/projekta2/pr-review-canvas/releases/tag/v1.0.0
--->
-
