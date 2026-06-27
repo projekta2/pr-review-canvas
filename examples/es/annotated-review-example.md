@@ -54,7 +54,7 @@ A realistic, fictional review transcript on a mid-sized PR ("Add CSV export to t
 
 > "Good catch on the permission check — that's a real gap, fixing now. On the streaming question: I hadn't worked with streaming responses before, would take you up on pairing if you have 20 minutes this week. Filed #519 for the CSV escaping issue. Renamed the variable, no objection."
 
-*Why this response works:* it engages with each comment specifically rather than a blanket "fixed!", takes the offer to pair instead of either ignoring it or guessing at an unfamiliar pattern alone, and files a tracked issue for the deferred fix instead of letting it disappear. See [`how-to-receive-feedback.md`](../guides/how-to-receive-feedback.md) for more on this pattern.
+*Why this response works:* it engages with each comment specifically rather than a blanket "fixed!", takes the offer to pair instead of either ignoring it or guessing at an unfamiliar pattern alone, and files a tracked issue for the deferred fix instead of letting it disappear. See [`how-to-receive-feedback.md`](../../guides/es/how-to-receive-feedback.md) for more on this pattern.
 
 ---
 
