@@ -48,7 +48,3 @@ Este repositorio practica lo que predica: usa [`templates/es/pr-template.md`](te
 ## Código de conducta
 
 Sé el revisor que te gustaría tener revisando tu propio código: directo con el problema, generoso con la persona. El desacuerdo sobre enfoques técnicos es bienvenido y esperado. Los ataques personales, la condescendencia o el gatekeeping basado en el nivel de experiencia de alguien no lo son, y los mantenedores cerrarán los hilos que vayan en esa dirección.
-
-## Preguntas
-
-Abre un [debate o issue](https://github.com/projekta2/pr-review-canvas/issues) — no hay lista de correo ni chat separado para este proyecto, intencionadamente, para que el razonamiento quede visible para cualquiera que encuentre el repositorio más adelante.
