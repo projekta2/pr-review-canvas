@@ -8,7 +8,7 @@ Si nunca has contribuido a un proyecto de código abierto, o simplemente quieres
 
 | Tarea | Archivo a editar | Qué hacer |
 |---|---|---|
-| Añadir un ítem del checklist que hayas usado de verdad | [`checklists/pr-review-checklist.md`](checklists/pr-review-checklist.md) | Añade el ítem en la categoría correcta + una frase explicando el error que previene |
+| Añadir un ítem del checklist que hayas usado de verdad | [`checklists/es/pr-review-checklist.md`](checklists/es/pr-review-checklist.md) | Añade el ítem en la categoría correcta + una frase explicando el error que previene |
 | Corregir una frase que suena vaga o aleccionadora | [`guides/es/how-to-give-feedback.md`](guides/es/how-to-give-feedback.md) | Reemplázala por un ejemplo concreto de una revisión real (anonimizado) |
 | Traducir un archivo a tu idioma | Cualquier archivo de `checklists/`, `guides/`, `templates/`, `resources/` o `examples/` | Copia el archivo bajo `<carpeta>/<código-idioma>/` (p. ej. `guides/es/`) manteniendo el nombre de fichero idéntico |
 | Añadir plantilla para Linear, Jira o GitHub Projects | `resources/linear-template.md`, `resources/jira-template.md`, `resources/github-projects-template.md` | Adapta el formato del checklist a la estructura nativa de la herramienta |
@@ -21,7 +21,7 @@ Elige una. Abre una PR. Eso es todo.
 No necesitas tocar código para contribuir de forma significativa.
 
 - **Añadir un ítem al checklist** que desearías que alguien te hubiera explicado, con una línea de «por qué».
-- **Afinar una frase de feedback** en [`guides/how-to-give-feedback.md`](guides/how-to-give-feedback.md) — los ejemplos reales de revisiones reales (anonimizados) son especialmente bienvenidos.
+- **Afinar una frase de feedback** en [`guides/es/how-to-give-feedback.md`](guides/es/how-to-give-feedback.md) — los ejemplos reales de revisiones reales (anonimizados) son especialmente bienvenidos.
 - **Traducir un archivo.** Si añades un idioma, copia la estructura de archivos existente bajo una carpeta `<carpeta>/<código-idioma>/` (p. ej. `guides/es/`) y mantén los nombres de fichero idénticos para que los enlaces sigan funcionando.
 - **Añadir una plantilla de equipo** para un flujo de trabajo que este kit no cubra todavía (p. ej., revisar infraestructura como código, revisar cambios en pipelines de datos, revisar PRs de design system).
 - **Reportar lo que está mal.** Un ítem del checklist que no se sostiene, un enlace roto, una errata — todo es válido para un issue.
@@ -36,7 +36,7 @@ No necesitas tocar código para contribuir de forma significativa.
 
 ## Abrir la PR
 
-Este repositorio practica lo que predica: usa [`templates/pr-template.md`](templates/pr-template.md) como base para la descripción de tu PR. Sí, es un poco meta. Ese también es el objetivo.
+Este repositorio practica lo que predica: usa [`templates/es/pr-template.md`](templates/es/pr-template.md) como base para la descripción de tu PR. Sí, es un poco meta. Ese también es el objetivo.
 
 ## Guía de estilo para archivos en prosa
 
