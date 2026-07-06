@@ -44,6 +44,15 @@ El checklist no es sólo un archivo markdown que tienes que imaginar marcando. E
 
 Sin instalación, sin cuenta, sin rastreo. Ábrelo, marca lo que corresponda y exporta tus notas cuando hayas terminado.
 
+<p align="center">
+  <a href="https://github.com/projekta2/pr-review-canvas/stargazers">
+    <img src="https://img.shields.io/badge/⭐_Dale_una_estrella-181717?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+</p>
+<p align="center">
+  <sub>Si esto te resulta útil, una estrella tarda un segundo y es lo que más ayuda a que otros desarrolladores lo encuentren.</sub>
+</p>
+
 ## Qué contiene
 
 | Ruta | Qué es |
@@ -66,6 +75,8 @@ Sin instalación, sin cuenta, sin rastreo. Ábrelo, marca lo que corresponda y e
 | [`resources/es/linear-template.md`](resources/es/linear-template.md) | Una versión lista para pegar del checklist en Linear |
 | [`resources/es/jira-template.md`](resources/es/jira-template.md) | Una versión lista para pegar del checklist en Jira |
 | [`resources/es/github-projects-template.md`](resources/es/github-projects-template.md) | Una guía para configurar un tablero de GitHub Projects para hacer seguimiento de las revisiones con la metodología Canvas |
+| [`ROADMAP.md`](ROADMAP.md) | Qué está planeado a continuación para el kit |
+| [`CHANGELOG.md`](CHANGELOG.md) | Historial de versiones — qué cambió y cuándo |
 
 ## Cómo usarlo
 
@@ -95,6 +106,10 @@ flowchart LR
 Este kit surgió del mismo agotamiento ante las revisiones que llevó a construir **[PR Focus AI Pro](https://chromewebstore.google.com/detail/pr-focus-ai-pro/ememaiabefeojkccjclglcmbjmdpnaoe)** — una extensión de navegador que clasifica y resume los pull requests de GitHub para el revisor *humano*, en lugar de intentar reemplazarlo con un bot que deja comentarios automáticos. Si te ves usando este checklist en PRs todos los días, ese es el hueco que cubre. ([Página en Gumroad](https://projekta2.gumroad.com/l/PRFocusAIPro) · licencia de pago único.)
 
 Las decisiones técnicas detrás de estas herramientas — incluyendo el razonamiento real, los bugs y las concesiones, no sólo los momentos estelares — están documentadas en **[Build Logs](https://github.com/projekta2/build-logs)**, un diario de ingeniería que registra cómo se construyen las herramientas de Projekta2.
+
+## Roadmap y changelog
+
+¿Curiosidad por saber qué viene después, o qué ya se lanzó? Consulta [`ROADMAP.md`](ROADMAP.md) para las próximas incorporaciones y [`CHANGELOG.md`](CHANGELOG.md) para el historial de versiones.
 
 ## Contribuir
 
