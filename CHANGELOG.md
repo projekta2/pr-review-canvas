@@ -1,21 +1,28 @@
 # Changelog
 
-All notable changes to this project are documented here. Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
+All notable changes to this project are documented here. Dates are in `YYYY-MM-DD`.
 
-## [1.0.0] - 2026-06-23
+The format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+## [Unreleased]
 
 ### Added
-- Initial public release.
-- 51-item code review checklist across 8 categories (`checklists/pr-review-checklist.md`).
-- Editable blank checklist template for teams (`checklists/pr-review-checklist-template.md`).
-- Interactive, offline-capable HTML checklist with a Review Readiness score, collapsible categories, localStorage persistence, and progress export (`checklists/interactive-checklist.html`).
-- Live GitHub Pages version of the interactive checklist (`docs/`).
-- Basic and advanced PR description templates (`templates/`).
-- Four guides: for beginners, for experts, giving feedback, receiving feedback (`guides/`).
-- Three annotated examples: a good PR, a bad PR, and a full reviewed-PR transcript (`examples/`).
-- Code review anti-patterns reference (`resources/code-review-antipatterns.md`).
-- Notion, Obsidian, Linear, Jira, and GitHub Projects import templates (`resources/`).
-- Full Spanish translation of the entire kit (`*/es/`, `README.es.md`, `CONTRIBUTING.es.md`).
-- Issue templates, PR template, and a markdown link-check GitHub Action for the repo itself (`.github/`).
+- `ROADMAP.md` and `CHANGELOG.md` for transparency on what's planned and what's shipped
+- Star CTA moved directly under "Try it live" in both README (EN) and README.es.md
 
-  
+## [1.0.0]
+
+### Added
+- Full 51-item checklist across 8 categories (`checklists/pr-review-checklist.md`)
+- Live interactive checklist on GitHub Pages, with offline-capable standalone HTML version
+- Blank editable checklist template for teams
+- Lightweight and advanced PR description templates
+- Guides: for beginners, for experts, how to give feedback, how to receive feedback
+- Annotated examples: good PR, bad PR, full annotated review transcript
+- Antipatterns resource covering both sides of the diff
+- Ready-to-paste templates for Notion, Obsidian, Linear, Jira, and GitHub Projects
+- Full bilingual parity (English / Spanish) across every file, including the interactive tool
+- MIT license, `CONTRIBUTING.md`, and issue templates including `good-first-issue` labels
+
+[Unreleased]: https://github.com/projekta2/pr-review-canvas/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/projekta2/pr-review-canvas/releases/tag/v1.0.0
