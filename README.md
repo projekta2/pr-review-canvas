@@ -44,6 +44,15 @@ The checklist isn't just a markdown file you have to imagine ticking off. It's a
 
 No install, no account, no tracking. Open it, check things off, export your notes when you're done.
 
+<p align="center">
+  <a href="https://github.com/projekta2/pr-review-canvas/stargazers">
+    <img src="https://img.shields.io/badge/⭐_Star_this_repo-181717?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+</p>
+<p align="center">
+  <sub>If this is useful to you, a star takes one second and is the single biggest thing that helps other developers find it.</sub>
+</p>
+
 ## What's inside
 
 | Path | What it is |
@@ -67,6 +76,8 @@ No install, no account, no tracking. Open it, check things off, export your note
 | [`resources/linear-template.md`](resources/linear-template.md) | A ready-to-paste version of the checklist for Linear |
 | [`resources/jira-template.md`](resources/jira-template.md) | A ready-to-paste version of the checklist for Jira |
 | [`resources/github-projects-template.md`](resources/github-projects-template.md) | A guide to set up a GitHub Projects board for tracking PR reviews with the Canvas methodology |
+| [`ROADMAP.md`](ROADMAP.md) | What's planned next for the kit |
+| [`CHANGELOG.md`](CHANGELOG.md) | Version history — what changed and when |
 
 ## How to use it
 
@@ -96,6 +107,10 @@ flowchart LR
 This kit grew out of the same review fatigue that led to building **[PR Focus AI Pro](https://chromewebstore.google.com/detail/pr-focus-ai-pro/ememaiabefeojkccjclglcmbjmdpnaoe)** — a browser-side extension that triages and summarizes GitHub pull requests for the *human* reviewer, instead of trying to replace them with a bot that leaves automated comments. If you find yourself running this checklist on PRs every day, that's the gap it fills. ([Gumroad page](https://projekta2.gumroad.com/l/PRFocusAIPro) · one-time license.)
 
 The technical decisions behind these tools — including the actual reasoning, bugs, and trade-offs, not just the highlight reel — are written up in **[Build Logs](https://github.com/projekta2/build-logs)**, an engineering journal documenting how Projekta2's tools get built.
+
+## Roadmap & changelog
+
+Curious what's coming next, or what already shipped? See [`ROADMAP.md`](ROADMAP.md) for planned additions and [`CHANGELOG.md`](CHANGELOG.md) for version history.
 
 ## Contributing
 
