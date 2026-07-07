@@ -1,50 +1,26 @@
-# Contributing to PR Review Canvas
+# Contributing to PR Review Canvas Skill
 
-Thanks for considering a contribution. This project stays useful because reviewers with different experiences add what's missing from their own day-to-day — that's the whole point of it being open.
+Thanks for considering a contribution. This skill stays intentionally small — the value is in a fixed, reliable structure, not in accumulating every possible check.
 
-## Start here: tasks you can finish today
+## Good contributions
 
-If you've never contributed to an open-source project before, or you just want something concrete to pick up without having to read the whole codebase, these are real gaps that need filling — each one takes 20–30 minutes:
+- **Language or framework-specific reference files** (e.g. `reference/react.md`, `reference/python.md`) that extend category 5 (Performance & security) or category 7 (Standards) with stack-specific checks — following the pattern of `reference/feedback-tone.md`. Keep each under ~200 lines; link out rather than duplicating general advice.
+- **Refinements to the feedback-tone reference** — better question/command examples, additional severity conventions.
+- **Bug reports** where the 8-category output doesn't match what's described in `SKILL.md`.
+- **Translations** — if you'd like to contribute a Spanish version, open an issue first so we agree on where it lives (likely `es/SKILL.md` mirroring `pr-review-canvas`'s existing `es/` convention).
 
-| Task | File to edit | What to do |
-|---|---|---|
-| Add a checklist item you've actually used | [`checklists/pr-review-checklist.md`](checklists/pr-review-checklist.md) | Add the item under the right category + one sentence explaining the failure mode it prevents |
-| Fix a phrase that feels vague or preachy | [`guides/how-to-give-feedback.md`](guides/how-to-give-feedback.md) | Replace it with a concrete example from a real review (anonymized) |
-| Translate a file to your language | Any file under `checklists/`, `guides/`, `templates/`, `resources/`, or `examples/` | Mirror the file under `<folder>/<lang-code>/` (e.g. `guides/es/`) keeping the filename identical |
-| Add Linear, Jira, or GitHub Projects template | `resources/linear-template.md`, `resources/jira-template.md`, `resources/github-projects-template.md` | Adapt the checklist format to the tool's native structure |
-| Report a broken link or typo | Anywhere | Open an issue — no PR needed |
+## Not a fit for this repo
 
-Pick one. Open a PR. That's it.
+- Auto-commenting / auto-posting integrations — this skill is explicitly a draft-for-a-human tool. If you want to build an auto-posting layer on top, that's a great separate project; happy to link to it from here.
+- General-purpose static analysis rules unrelated to the 8-category review structure — those belong in a linter, not this skill.
 
-## All the ways to contribute
+## Process
 
-You don't need to touch code to contribute meaningfully here.
-
-- **Add a checklist item** you wish someone had told you about, with a one-line "why."
-- **Sharpen a feedback phrase** in [`guides/how-to-give-feedback.md`](guides/how-to-give-feedback.md) — real examples from real reviews (anonymized) are especially welcome.
-- **Translate a file.** If you add a language, mirror the existing file structure under a `<folder>/<lang-code>/` folder (e.g. `guides/es/`) and keep filenames identical so links still resolve.
-- **Add a team template** for a workflow this kit doesn't cover yet (e.g., reviewing infrastructure-as-code, reviewing data pipeline changes, reviewing design-system PRs).
-- **Report what's wrong.** A checklist item that doesn't hold up, a broken link, a typo — all fair game for an issue.
-
-## Before you open a PR
-
-1. **Check existing issues and PRs first** to avoid duplicate work.
-2. **Keep checklist items atomic.** One concrete, checkable thing per line — if it needs "and," it's probably two items.
-3. **Every new checklist item needs a "why."** An instruction without a reason is just an opinion. Explain the failure mode it prevents.
-4. **Match the existing tone.** Direct, specific, no fluff. "Tests verify behavior, not implementation details" is the bar — not "Make sure your tests are good."
-5. **If you're touching `checklists/interactive-checklist.html`**, test it in an actual browser before opening the PR — it has no build step, so what you see is what ships.
-
-## Opening the PR
-
-This repo eats its own dog food: please use [`templates/pr-template.md`](templates/pr-template.md) as the basis for your PR description. Yes, that's slightly meta. That's also the point.
-
-## Style guide for prose files
-
-- Sentence case for headings, not Title Case.
-- Active voice. "Run the tests" not "Tests should be run."
-- No emoji inside guide bodies — they're fine in the README and table headers, but guides should read like a colleague explaining something, not a slide deck.
-- Keep examples concrete. "Don't write `if (x == null || x == undefined)`" beats "avoid loose equality issues."
+1. Fork the repo
+2. Create a branch
+3. Make your change, keeping `SKILL.md` itself short — push detail into `reference/`
+4. Open a PR describing what changed and why
 
 ## Code of conduct
 
-Be the reviewer you'd want reviewing your own code: direct about the problem, generous about the person. Disagreement about technical approaches is welcome and expected. Personal attacks, dismissiveness, or gatekeeping based on someone's experience level are not, and maintainers will close threads that go that direction.
+Be direct, be kind. Critique the content, not the person.
